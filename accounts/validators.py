@@ -9,4 +9,4 @@ def check_last_and_first_name(value):
         name = get_regex_value[0]
         if name == value:
             return name
-    raise ValidationError("فیلد مورد نظر باید فقط شامل حروف باشد .")
+    raise ValidationError(". فیلد مورد نظر باید فقط شامل حروف باشد ")

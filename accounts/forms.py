@@ -6,7 +6,9 @@ from .models import User
 
 
 class RegisterForm(forms.ModelForm):
-    repeat_password = forms.CharField(max_length=128, widget=forms.PasswordInput)
+    repeat_password = forms.CharField(max_length=128, widget=forms.PasswordInput(attrs={
+        'placeholder': 'تکرار رمز عبور را وارد کنید'
+    }), label='تکرار رمز عبور')
 
     class Meta:
         model = User
@@ -17,11 +19,20 @@ class RegisterForm(forms.ModelForm):
             'password',
         ]
         widgets = {
-            'password': forms.PasswordInput(),
+            'username':forms.TextInput(attrs={'placeholder': 'نام کاربری خود را وارد کنید '}),
+            'first_name':forms.TextInput(attrs={'placeholder': 'نام خود را وارد کنید ' }),
+            'last_name': forms.TextInput(attrs={'placeholder': 'نام خانوادگی خود را وارد کنید '}),
+            'password': forms.PasswordInput(attrs={'placeholder': 'رمز عبور مورد نظر را وارد کنید '}),
+        }
+        labels = {
+            'username': 'نام کاربری',
+            'first_name': 'نام',
+            'last_name': 'نام خانوادگی',
+            'password':'رمز عبور',
         }
 
     def clean_repeat_password(self):
-        password, re_password = self.cleaned_data.get('password'), self.cleaned_data.get('re_password')
+        password, re_password = self.cleaned_data.get('password'), self.cleaned_data.get('repeat_password')
         if password != re_password:
             raise forms.ValidationError('رمز شما با تکرار ان برابر نیست !')
         elif len(password) < 7:
@@ -49,6 +60,11 @@ class PhoneNumberForm(forms.Form):
             if phone_number == phone_number:
                 return phone_number
         raise forms.ValidationError(". لطفا شماره تلفن همراه صحیح وارد نمایید ")
+
+
+class CodeSend(forms.Form):
+    code_user = forms.CharField(max_length=6, widget=forms.TextInput(
+        attrs={'placeholder': 'کد ارسالی را وارد نمایید '}), label='کد ارسالی')
 
 
 class ManagementForm(forms.Form):
