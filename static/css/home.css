@@ -1,0 +1,18 @@
+.d-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top: 30px;
+  gap: 50px;
+}
+.head{
+  padding-top: 190px;
+}
+
+.center-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

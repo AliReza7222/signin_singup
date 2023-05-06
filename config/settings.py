@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts'
+    'accounts',
+    'pages',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -127,3 +128,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Time Authentication block
+INVALID_LOGIN_ATTEMPTS_ALLOWED = 3
+INVALID_LOGIN_ATTEMPTS_TIMEOUT = 3600

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Home{% endblock %}</title>
+    {% block link %}{% endblock %}
+    <link href="{% static 'css/messages.css' %}" rel="stylesheet" type="text/css">
+
+</head>
+<body class="p-3 mb-2 bg-light text-dark">
+    <!-- Show messages -->
+    {% if messages %}
+        {% for message in messages %}
+             {% if message.tags %}
+                  <div style="text-align:center">
+                  {% if message.tags == 'success' %}
+                        <div class="text-center">
+                          <div class="alert alert-success" role="alert">
+                              <span class="closebtn" onclick="this.parentElement.style.display='none';" dir="rtl">&times;</span>
+                                {{ message }}
+                          </div>
+                        </div>
+                  {% elif message.tags == 'error' %}
+                          <div class="alert alert-danger" role="alert">
+                              <span class="closebtn" onclick="this.parentElement.style.display='none';" dir="rtl">&times;</span>
+                                {{ message }}
+                          </div>
+                  {% endif %}
+                  </div>
+             {% endif %}
+        {% endfor %}
+    {% endif %}
+    <div class="container " style="text-align:center">
+        {% block content %}
+        {% endblock %}
+    </div>
+    {% block script %}{% endblock %}
+</body>
+</html>
