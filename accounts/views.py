@@ -22,7 +22,7 @@ from .models import User
 def show_first_error(list_error):
     for field in list_error:
         if list_error.get(field):
-            return {'field': field.label, 'text': list_error.get(field).as_text()}
+            return {'text': list_error.get(field).as_text()}
 
 
 class LoginRegister(TemplateView):
@@ -226,7 +226,7 @@ class RegisterUser(SessionWizardView):
                 # proceed to the next step
                 return self.render_next_step(form)
         message_box = show_first_error(form.errors)
-        messages.error(self.request, f"{message_box.get('field')}:  {message_box.get('text').lstrip('*')}")
+        messages.error(self.request, f"{message_box.get('text').lstrip('*')}")
         return self.render(form)
 
     def done(self, form_list, **kwargs):
