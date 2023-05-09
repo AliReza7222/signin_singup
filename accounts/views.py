@@ -111,8 +111,10 @@ class Login(SessionWizardView):
     def done(self, form_list, **kwargs):
         username = self.get_cleaned_data_for_step(self.STEP_TWO)['username']
         user = User.objects.get(username=username)
+        phone_number = user.phone_number
         login(self.request, user)
         message = f' عزیز شما با موفقیت وارد سایت شدید {user.first_name} {user.last_name}'
+        set_invalid_login_attempts(phone_number, 0)
         messages.success(self.request, message)
         return redirect('home')
 
@@ -239,5 +241,6 @@ class RegisterUser(SessionWizardView):
         del form_information_user['repeat_password']
         User.objects.create(**form_information_user)
         message = ' . شما با موفقیت ثبت نام شدید حال میتوانید وارد سایت شوید '
+        set_invalid_login_attempts(phone_number, 0)
         messages.success(self.request, message)
         return redirect('login_register')
